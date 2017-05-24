@@ -1,0 +1,12 @@
+---
+- name: Install Elastic Key
+  apt_key:
+    url: "{{ elasticsearch_gpg_key }}"
+    state: present
+    validate_certs: no
+
+- name: Add beats repository
+  apt_repository:
+    repo: "{{ debian_repo }}"
+    state: present
+    update_cache: yes

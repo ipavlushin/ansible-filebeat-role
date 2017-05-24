@@ -1,0 +1,34 @@
+---
+ansible:
+   playbook:  playbook.yml
+
+#dependency:
+#  name: galaxy
+driver:
+  name: docker
+docker:
+  containers:
+    - name: filebeat-centos
+      image: milcom/centos7-systemd
+      image_version: latest
+      ansible_groups:
+        - group1
+      privileged: True
+      environment:
+        http_proxy: http://proxy3.ahml1.ru:3128
+        https_proxy: http://proxy3.ahml1.ru:3128
+    - name: filebeat-debian
+      ansible_groups:
+        - group2
+      image: ipavlushin/debian-systemd
+      #image: sbernard/debian-systemd-kitchen
+      image_version: latest
+      privileged: True
+      #environment:
+      #  http_proxy: "http://proxy3.ahml1.ru:3128"
+      #  https_proxy: "http://proxy3.ahml1.ru:3128"
+
+verifier:
+  name: testinfra
+  options:
+    verbose: true

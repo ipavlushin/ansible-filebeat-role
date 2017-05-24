@@ -1,0 +1,23 @@
+---
+- name: Install filebeat repo on CentOs
+  include: setup-Redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Install filebeat repo on Debian
+  include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Install Filebeat
+  package:
+    name: filebeat
+    state: present
+
+- name: Prepare filebeat config
+  include: config.yml
+  when: filebeat_create_config
+
+- name: Ensure Filebeat is started and enabled
+  service:
+    name: filebeat
+    state: started
+    enabled: yes

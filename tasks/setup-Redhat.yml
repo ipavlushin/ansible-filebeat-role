@@ -1,0 +1,12 @@
+---
+- name: Install Elastic GPG key
+  rpm_key:
+    state: present
+    key: "{{ elasticsearch_gpg_key }}"
+    validate_certs: no
+
+- name: Add Filebeat repo
+  template:
+    src: elastic.repo.j2
+    dest: /etc/yum.repos.d/elastic.repo
+    mode: 0644
