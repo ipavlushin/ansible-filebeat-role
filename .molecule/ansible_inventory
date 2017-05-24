@@ -1,0 +1,9 @@
+[all]
+filebeat-centos ansible_connection=docker
+filebeat-debian ansible_connection=docker
+
+[group1]
+filebeat-centos
+
+[group2]
+filebeat-debian
